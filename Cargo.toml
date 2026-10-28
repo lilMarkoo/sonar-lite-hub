@@ -1,0 +1,24 @@
+[package]
+name = "sonar-lite"
+version = "0.1.0"
+edition = "2021"
+description = "Sonar-style audio mixer: channels, ChatMix, EQ presets, AI noise cancellation. No bloat."
+
+[dependencies]
+cpal = "0.15"
+eframe = "0.29"
+nnnoiseless = "0.5"
+ringbuf = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+directories = "5"
+anyhow = "1"
+
+# RNNoise is CPU heavy; keep dependencies optimized even in debug builds.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
